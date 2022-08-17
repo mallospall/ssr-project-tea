@@ -16,6 +16,7 @@ function Layout({ initState }) {
         {/* Было раньше - <script defer>window.initState={{{initState}}}</script> */}
         <script defer src="/app.js" />
         <script defer src="/vendor.js" />
+        <script defer src="https://api-maps.yandex.ru/2.1/?apikey=6eb8bf8f-1394-4692-b41f-0561df9b2c80&lang=ru_RU" type="text/javascript" />
         <title>Document</title>
       </head>
       <body>

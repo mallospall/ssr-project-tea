@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+.mapContainer {
+  width: 1000px;
+}
+
 
 /* element styling */
 html {
@@ -281,8 +285,8 @@ input[type=text], input[type=password], textarea {
 .logo-container {
   border: 5px solid #000000;
   color: #000000;
-  width: 305px;
-  height: 305px;
+  width: 205px;
+  height: 205px;
   border-radius: 50%;
   padding: 20px;
   margin: 0 auto;
@@ -295,4 +299,10 @@ input[type=text], input[type=password], textarea {
 
 .error {
   color: red;
+}
+
+.nav_container {
+  display: flex;
+  justify-content: space-between;
+  width: 690px;
 }

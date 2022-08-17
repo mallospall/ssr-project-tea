@@ -21,11 +21,16 @@ function Header({ authState, setAuthState }) {
           <ul className="no-bullets no-margin no-padding right">
             {!authState
               ? (
-                <>
-                  <li className="pipe-separate t-light-green left"><NavLink to="/registration">registration</NavLink></li>
-                  <li className="pipe-separate t-light-green left"><NavLink to="/login">login</NavLink></li>
-                  <li className="pipe-separate t-light-green left"><NavLink to="/">home</NavLink></li>
-                </>
+                <div className="nav_container">
+                  <div className="nav-title">
+                    <li className="pipe-separate t-light-green left"><NavLink to="/">Tea Blog</NavLink></li>
+                  </div>
+                  <div className="nav-links">
+                    <li className="pipe-separate t-light-green left"><NavLink to="/registration">registration</NavLink></li>
+                    <li className="pipe-separate t-light-green left"><NavLink to="/login">login</NavLink></li>
+                    <li className="pipe-separate t-light-green left"><NavLink to="/">home</NavLink></li>
+                  </div>
+                </div>
               )
               : (
                 <>
@@ -39,7 +44,7 @@ function Header({ authState, setAuthState }) {
 
         <div className="logo-container">
           <img src="/images/testLogo.png" alt="tea" className="center block logo" />
-          <h1>Tea Blog</h1>
+          {/* <h1>Tea Blog</h1> */}
 
         </div>
       </div>
