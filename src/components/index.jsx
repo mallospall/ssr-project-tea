@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOMClient from 'react-dom/client';
+import hydrate from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
@@ -8,9 +8,9 @@ const container = document.getElementById('root');
 
 // применение гидратации в указанный контейнер
 // + обёртка компонентом BrowserRouter для клиентского роутинга
-ReactDOMClient.hydrateRoot(
-  container,
+hydrate(
   <BrowserRouter>
     <App {...window.initState} />
   </BrowserRouter>,
+  container,
 );

@@ -1,10 +1,10 @@
 import express from 'express';
 import morgan from 'morgan';
 import session from 'express-session';
-import { renderToString } from 'react-dom/server';
 import store from 'session-file-store';
-import React from 'react';
-import Layout from './components/Layout';
+import renderRouter from './routes/renderRouter';
+import authRouter from './routes/authRouter';
+import apiRouter from './routes/apiRouter';
 
 require('dotenv').config();
 
@@ -30,15 +30,8 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(session(sessionConfig));
 
-app.get('/', async (req, res) => {
-  try {
-    const initState = { path: req.originalUrl, userSession: req.session.userSession };
-    const html = renderToString(<Layout initState={initState} />);
-    res.write('<!DOCTYPE html>');
-    res.end(html);
-  } catch (err) {
-    console.error(err);
-  }
-});
+app.use('/', renderRouter);
+app.use('/auth', authRouter);
+app.use('/api', apiRouter);
 
 app.listen(PORT, () => console.log(`Server is started on port ${PORT}`));
