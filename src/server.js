@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server';
 import store from 'session-file-store';
 import React from 'react';
 import Layout from './components/Layout';
+import { Tea } from './db/models';
 
 require('dotenv').config();
 
