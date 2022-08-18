@@ -18,7 +18,7 @@ function App({ userSession }) {
             <Route path="/" element={<Main authState={authState} />} />
             <Route path="/login" element={<Login setAuthState={setAuthState} />} />
             <Route path="/registration" element={<Registration setAuthState={setAuthState} />} />
-            <Route path="/lk/:id" element={<Lk />} />
+            <Route path="/lk/:id" element={<Lk authState={authState} />} />
           </Routes>
         </div>
       </div>
