@@ -9,13 +9,17 @@ function Lk({ authState }) {
     email: '',
     name: '',
     roleName: '',
+    favTeas: [],
+    user_id: null,
   });
 
   useEffect(() => {
-    fetch(`api/lk/${id}`)
+    fetch(`/api/lk/${id}`)
       .then((res) => res.json())
       .then((data) => setUserState(data));
   }, []);
+
+  console.log(userState);
 
   return (
     <div>

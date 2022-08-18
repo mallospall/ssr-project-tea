@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(session(sessionConfig));
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', renderRouter);
 app.use('/auth', authRouter);
