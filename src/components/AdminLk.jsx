@@ -6,8 +6,8 @@ function AdminLk({userState}) {
         img: '',
         description: '',
         location: '',
-        x: '',
-        y: '',
+        x: 0.00,
+        y: 0.00,
     }]);
     const [inputTea, setInputTea] = useState([{
             name: '',
@@ -19,10 +19,12 @@ function AdminLk({userState}) {
         }]);
 
   useEffect(() => {
-    fetch('api/teas')
+    fetch('/api/teas')
       .then((res) => res.json())
-      .then((data) => setAllTea(data));
+      .then((data) => setAllTea(data))
   }, []);
+
+console.log(allTea);
 
 
 
@@ -47,7 +49,7 @@ function AdminLk({userState}) {
     return (
         <>
         <div>
-            <table class="table table-dark">
+            <table className="table table-dark">
             <thead>
                 <tr>
                 <th scope="col">#</th>
@@ -68,7 +70,7 @@ function AdminLk({userState}) {
     <div>
       <h1>Добавить новый чай</h1>
       <form onSubmit={submitHandler}>
-        <label htmlFor="username-input" className="block mar-b-1">Нащвание чая:</label>
+        <label htmlFor="username-input" className="block mar-b-1">Название чая:</label>
         <input
           id="username-input"
           onChange={inputHandler}
@@ -138,19 +140,19 @@ function AdminLk({userState}) {
     </div>
         <h2>Список всего чая</h2>
         <div>
-        {allTea?.map((el) => {
-            <div>
-                <div class="card" style="width: 18rem;">
-                <img src={el.img} class="card-img-top" alt={el.name}/>
-                <div class="card-body">
-                <h5 class="card-title">{el.name}</h5>
-                <p class="card-text">{el.description}</p>
-                <button type="button" class="btn btn-outline-success">подробнее</button>
-                <button type="button" class="btn btn-outline-danger">удалить</button>
+        {allTea?.map((el) => (
+            <div key={el.id}>
+                <div className="card" style={{width: "18rem" }}>
+                <img src={el.img} className="card-img-top" alt={el.name}/>
+                <div className="card-body">
+                <h5 className="card-title">{el.name}</h5>
+                <p classNmae="card-text">{el.description}</p>
+                <button type="button" className="btn btn-outline-success">редактировать</button>
+                <button type="button" className="btn btn-outline-danger">удалить</button>
                 </div>
                 </div>
             </div>
-        })}
+        ))}
         </div>
         </>
     

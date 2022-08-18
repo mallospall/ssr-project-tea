@@ -5,6 +5,7 @@ import Login from './Login';
 import Main from './Main';
 import Navbar from './Navbar';
 import Registration from './Registration';
+import TeaDetails from './TeaDetails';
 
 function App({ userSession }) {
   const [authState, setAuthState] = useState(userSession || null);
@@ -19,6 +20,7 @@ function App({ userSession }) {
             <Route path="/login" element={<Login setAuthState={setAuthState} />} />
             <Route path="/registration" element={<Registration setAuthState={setAuthState} />} />
             <Route path="/lk/:id" element={<Lk authState={authState} />} />
+            <Route path="/tea/:id" element={<TeaDetails authState={authState} />} />
           </Routes>
         </div>
       </div>
