@@ -15,7 +15,8 @@ function Layout({ initState }) {
         {/* Было раньше - <script defer>window.initState={{{initState}}}</script> */}
         <script defer src="/app.js" />
         <script defer src="/vendor.js" />
-        <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full" />
+        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<6eb8bf8f-1394-4692-b41f-0561df9b2c80>" type="text/javascript"/>
+        <script src="icon_customImage.js" type="text/javascript"/>
         <title>Document</title>
       </head>
       <body>
