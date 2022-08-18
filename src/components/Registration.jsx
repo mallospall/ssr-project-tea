@@ -19,7 +19,7 @@ function Registration({ setAuthState }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const response = await fetch('api/auth/registration', {
+    const response = await fetch('auth/registration', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -79,7 +79,7 @@ function Registration({ setAuthState }) {
         <input
           onChange={inputHandler}
           type="submit"
-          value="Publish"
+          value="Зарегистрироваться"
           className="block button w-100 mar-t-4 mar-b-3 pad-2 round-1 text-c center no-border no-outline"
         />
       </form>

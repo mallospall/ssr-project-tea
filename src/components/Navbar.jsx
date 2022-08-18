@@ -5,6 +5,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 function Header({ authState, setAuthState }) {
   const navigate = useNavigate();
 
+  console.log(authState);
+
   const logoutHandler = async (e) => {
     e.preventDefault();
     const response = await fetch('/auth/logout');
@@ -26,18 +28,23 @@ function Header({ authState, setAuthState }) {
                     <li className="pipe-separate t-light-green left"><NavLink to="/">Tea Blog</NavLink></li>
                   </div>
                   <div className="nav-links">
-                    <li className="pipe-separate t-light-green left"><NavLink to="/registration">registration</NavLink></li>
-                    <li className="pipe-separate t-light-green left"><NavLink to="/login">login</NavLink></li>
-                    <li className="pipe-separate t-light-green left"><NavLink to="/">home</NavLink></li>
+                    <li className="pipe-separate t-light-green left"><NavLink to="/registration">Регистрация</NavLink></li>
+                    <li className="pipe-separate t-light-green left"><NavLink to="/login">Вход</NavLink></li>
+                    <li className="pipe-separate t-light-green left"><NavLink to="/">Главная</NavLink></li>
                   </div>
                 </div>
               )
               : (
-                <>
-                  <li className="pipe-separate t-light-green left">{authState.name || 'nickname'}</li>
-                  <li className="pipe-separate t-light-green left"><NavLink to="/">home</NavLink></li>
-                  <li className="pipe-separate t-light-green left"><a onClick={logoutHandler} className="nav-link" href="">logout </a></li>
-                </>
+                <div className="nav_container">
+                  <div className="nav-title">
+                    <li className="pipe-separate t-light-green left"><NavLink to="/">Tea Blog</NavLink></li>
+                  </div>
+                  <div className="nav-links">
+                    <li className="pipe-separate t-light-green left"><NavLink to="/lk">{authState.name || 'nickname'}</NavLink></li>
+                    <li className="pipe-separate t-light-green left"><NavLink to="/">Главная</NavLink></li>
+                    <li className="pipe-separate t-light-green left"><a onClick={logoutHandler} className="nav-link" href="">Выход </a></li>
+                  </div>
+                </div>
               )}
           </ul>
         </nav>

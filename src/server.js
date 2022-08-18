@@ -6,8 +6,6 @@ import renderRouter from './routes/renderRouter';
 import authRouter from './routes/authRouter';
 import apiRouter from './routes/apiRouter';
 
-require('dotenv').config();
-
 const PORT = process.env.PORT || 3000;
 const app = express();
 
