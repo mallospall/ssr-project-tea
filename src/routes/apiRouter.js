@@ -27,7 +27,7 @@ router.get('/lk/:id', async (req, res) => {
   const roleName = user.Role.name;
   const { name, email } = user;
   res.json({
-    name, email, roleName, favTeas,
+    name, email, roleName, favTeas, user_id: user.id,
   });
 
   // const { name, email, role_id } = await User.findByPk(id);

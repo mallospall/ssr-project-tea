@@ -10,6 +10,7 @@ function Lk({ authState }) {
     name: '',
     roleName: '',
     favTeas: [],
+    user_id: null,
   });
 
   useEffect(() => {
