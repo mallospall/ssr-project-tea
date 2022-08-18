@@ -17,7 +17,7 @@ function Login({ setAuthState }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const response = await fetch('api/auth/login', {
+    const response = await fetch('auth/login', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -59,7 +59,7 @@ function Login({ setAuthState }) {
         <input
           onChange={inputHandler}
           type="submit"
-          value="Publish"
+          value="Войти"
           className="block button w-100 mar-t-4 mar-b-3 pad-2 round-1 text-c center no-border no-outline"
         />
       </form>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Lk from './Lk';
 import Login from './Login';
 import Main from './Main';
 import Navbar from './Navbar';
@@ -16,6 +17,7 @@ function App({ userSession }) {
             <Route path="/" element={<Main authState={authState} />} />
             <Route path="/login" element={<Login setAuthState={setAuthState} />} />
             <Route path="/registration" element={<Registration setAuthState={setAuthState} />} />
+            <Route path="/lk" element={<Lk />} />
           </Routes>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React from 'react';
 import { Map, YMaps } from 'react-yandex-maps';
 
 function Main(props) {
@@ -6,8 +6,8 @@ function Main(props) {
     <div>
       <YMaps className="map-container">
         <div>
-          My awesome application with maps!
-          <Map defaultState={{ center: [55.75, 37.57], zoom: 9 }} />
+          <h1>Выбирайте точку на карте, чтобы узнать больше о конкретном сорте чая!</h1>
+          <Map style={{ width: '700px', height: '700px' }} defaultState={{ center: [55.75, 37.57], zoom: 9 }} />
         </div>
       </YMaps>
     </div>
