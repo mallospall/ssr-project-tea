@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 function TeaDetails({ authState }) {
   const [teaState, setTeaState] = useState({});
-  const [isFavState, setIsFavState] = useState()
+  const [isFavState, setIsFavState] = useState(true);
   const [userState, setUserState] = useState({
     email: '',
     name: '',
@@ -14,15 +14,18 @@ function TeaDetails({ authState }) {
 
   const { id } = useParams();
 
-  const isFavTea = userState.favTeas.includes(teaState);
+  // const isFavTea = userState.favTeas.includes(teaState);
 
   useEffect(() => {
     fetch(`/api/teas/${id}`)
       .then((res) => res.json())
-      .then((data) => setTeaState(data));
+      .then((data) => {
+        setTeaState(data);
+      });
     fetch(`/api/lk/${authState.id}`)
       .then((res) => res.json())
       .then((data) => setUserState(data));
+    setIsFavState(userState.favTeas.includes(teaState));
   }, []);
 
   const deleteHandler = async (e) => {
@@ -34,6 +37,7 @@ function TeaDetails({ authState }) {
     });
     if (response.ok) {
       setTeaState({ name: 'Чай удален из избранного' });
+      setIsFavState(!isFavState);
     }
   };
 
@@ -45,7 +49,7 @@ function TeaDetails({ authState }) {
       body: JSON.stringify({ userId: userState.user_id }),
     });
     if (response.ok) {
-
+      setIsFavState(!isFavState);
     }
   };
 
@@ -80,7 +84,7 @@ function TeaDetails({ authState }) {
               <button type="button" className="btn btn-danger">Удалить</button>
             </>
           )
-          : isFavTea === true ? <button type="button" onClick={createHandler} className="btn btn-secondary">Добавить в избранное</button> : <button onClick={deleteHandler} type="button" className="btn btn-danger">Удалить из избранного</button>}
+          : isFavState === true ? <button type="button" onClick={createHandler} className="btn btn-secondary">Добавить в избранное</button> : <button onClick={deleteHandler} type="button" className="btn btn-danger">Удалить из избранного</button>}
       </div>
 
     </div>
