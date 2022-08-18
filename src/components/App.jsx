@@ -8,6 +8,7 @@ import Registration from './Registration';
 
 function App({ userSession }) {
   const [authState, setAuthState] = useState(userSession || null);
+  console.log(authState?.id ?? 'p');
   return (
     <>
       <Navbar authState={authState} setAuthState={setAuthState} />
@@ -17,7 +18,7 @@ function App({ userSession }) {
             <Route path="/" element={<Main authState={authState} />} />
             <Route path="/login" element={<Login setAuthState={setAuthState} />} />
             <Route path="/registration" element={<Registration setAuthState={setAuthState} />} />
-            <Route path="/lk" element={<Lk />} />
+            <Route path="/lk/:id" element={<Lk authState={authState} />} />
           </Routes>
         </div>
       </div>
