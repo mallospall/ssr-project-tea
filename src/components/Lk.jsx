@@ -1,9 +1,11 @@
 import React from 'react';
+import AdminLk from './AdminLk';
+import UserLk from './UserLk';
 
-function Lk(props) {
+function Lk({ role_name }) {
   return (
     <div>
-      Lk page
+      {role_name === 'admin' ? <AdminLk /> : <UserLk />}
     </div>
   );
 }
