@@ -28,21 +28,21 @@ function Header({ authState, setAuthState }) {
                     <li className="pipe-separate t-light-green left"><NavLink to="/">Tea Blog</NavLink></li>
                   </div>
                   <div className="nav-links">
-                    <li className="pipe-separate t-light-green left"><NavLink to="/registration">Регистрация</NavLink></li>
-                    <li className="pipe-separate t-light-green left"><NavLink to="/login">Вход</NavLink></li>
-                    <li className="pipe-separate t-light-green left"><NavLink to="/">Главная</NavLink></li>
+                    <li className="pipe-separate t-light-green left navv"><NavLink to="/registration">Регистрация</NavLink></li>
+                    <li className="pipe-separate t-light-green left navv"><NavLink to="/login">Вход</NavLink></li>
+                    <li className="pipe-separate t-light-green left navv"><NavLink to="/">Главная</NavLink></li>
                   </div>
                 </div>
               )
               : (
                 <div className="nav_container">
                   <div className="nav-title">
-                    <li className="pipe-separate t-light-green left"><NavLink to="/">Tea Blog</NavLink></li>
+                    <li className="pipe-separate t-light-green left navv"><NavLink to="/">Tea Blog</NavLink></li>
                   </div>
                   <div className="nav-links">
-                    <li className="pipe-separate t-light-green left"><NavLink to="/lk">{authState.name || 'nickname'}</NavLink></li>
-                    <li className="pipe-separate t-light-green left"><NavLink to="/">Главная</NavLink></li>
-                    <li className="pipe-separate t-light-green left"><a onClick={logoutHandler} className="nav-link" href="">Выход </a></li>
+                    <li className="pipe-separate t-light-green left navv"><NavLink to={`/lk/${authState.id}`}>{authState.name || 'nickname'}</NavLink></li>
+                    <li className="pipe-separate t-light-green left navv"><NavLink to="/">Главная</NavLink></li>
+                    <li className="pipe-separate t-light-green left navv"><a id="exit" onClick={logoutHandler} href="">Выход </a></li>
                   </div>
                 </div>
               )}
