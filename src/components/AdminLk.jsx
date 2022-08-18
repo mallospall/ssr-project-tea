@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-function AdminLk({userState, allTea}) {
-
-    const [inputTea, setInputTea] = useState({
+function AdminLk({userState}) {
+    const [allTea, setAllTea] = useState([{
         name: '',
         img: '',
         description: '',
         location: '',
         x: '',
         y: '',
-      });
+    }]);
+    const [inputTea, setInputTea] = useState([{
+            name: '',
+            img: '',
+            description: '',
+            location: '',
+            x: 0.00,
+            y: 0.00,
+        }]);
+
+  useEffect(() => {
+    fetch('api/teas')
+      .then((res) => res.json())
+      .then((data) => setAllTea(data));
+  }, []);
+
+
+
     
       const inputHandler = (e) => {
         setInputTea((prev) => ({
@@ -56,7 +72,7 @@ function AdminLk({userState, allTea}) {
         <input
           id="username-input"
           onChange={inputHandler}
-          value={inputs.name}
+          value={inputTea.name}
           name="name"
           type="text"
           className="block w-100 no-outline no-border pad-1 mar-b-2"
@@ -66,7 +82,7 @@ function AdminLk({userState, allTea}) {
         <input
           id="email-input"
           onChange={inputHandler}
-          value={inputs.email}
+          value={inputTea.email}
           name="img"
           type="text"
           className="block w-100 no-outline no-border pad-1 mar-b-2"
@@ -76,7 +92,7 @@ function AdminLk({userState, allTea}) {
         <input
           id="password-input"
           onChange={inputHandler}
-          value={inputs.password}
+          value={inputTea.password}
           name="description"
           type="text"
           className="block w-100 no-outline no-border pad-1 mar-b-2"
@@ -86,7 +102,7 @@ function AdminLk({userState, allTea}) {
         <input
           id="password-input"
           onChange={inputHandler}
-          value={inputs.password}
+          value={inputTea.password}
           name="location"
           type="text"
           className="block w-100 no-outline no-border pad-1 mar-b-2"
@@ -96,9 +112,9 @@ function AdminLk({userState, allTea}) {
         <input
           id="password-input"
           onChange={inputHandler}
-          value={inputs.password}
+          value={inputTea.password}
           name="x"
-          type="text"
+          type="number"
           className="block w-100 no-outline no-border pad-1 mar-b-2"
         />
 
@@ -106,9 +122,9 @@ function AdminLk({userState, allTea}) {
         <input
           id="password-input"
           onChange={inputHandler}
-          value={inputs.password}
+          value={inputTea.password}
           name="y"
-          type="text"
+          type="number"
           className="block w-100 no-outline no-border pad-1 mar-b-2"
         />
 

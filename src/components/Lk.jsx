@@ -12,30 +12,17 @@ function Lk({ authState }) {
     favTeas: [],
   });
 
-  const [allTea, setAllTea] = useState({
-    img: '',
-    name: '',
-    description: '',
-    location: '',
-    x: '',
-    y: '',
-  });
-
   useEffect(() => {
-    fetch(`api/lk/${id}`)
+    fetch(`/api/lk/${id}`)
       .then((res) => res.json())
       .then((data) => setUserState(data));
   }, []);
 
-  useEffect(() => {
-    fetch('api/teas')
-      .then((res) => res.json())
-      .then((data) => setAllTea(data));
-  }, []);
+  console.log(userState);
 
   return (
     <div>
-      {userState.roleName === 'admin' ? <AdminLk userState={userState} allTea={allTea} /> : <UserLk userState={userState} />}
+      {userState.roleName === 'admin' ? <AdminLk userState={userState} /> : <UserLk userState={userState} />}
     </div>
   );
 }
