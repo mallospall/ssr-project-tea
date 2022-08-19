@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login({ setAuthState }) {
+  const [validPass, setValidPass] = useState(true);
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
@@ -27,12 +28,16 @@ function Login({ setAuthState }) {
     if (response.ok) {
       const data = await response.json();
       setAuthState(data);
+      setValidPass(true);
       navigate('/');
+    } else {
+      setValidPass(false);
     }
   };
   return (
     <div>
       <h1>Login page</h1>
+      {!validPass ? <h3 style={{ color: 'red' }}>*Неверный логин или пароль</h3> : <> </>}
 
       <form onSubmit={submitHandler}>
 

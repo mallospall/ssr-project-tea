@@ -35,13 +35,16 @@ function AdminLk({ userState }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const response = await fetch('/tea/add', {
+    const response = await fetch('/api/tea/add', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(inputTea),
     });
+    const data = await response.json();
+    console.log(data);
+    setAllTea((prev) => [...prev, data]);
   };
   return (
     <>
@@ -136,16 +139,16 @@ function AdminLk({ userState }) {
         </form>
       </div>
       <h2>Список всего чая</h2>
-      <div>
+      <div className="Cards">
         {allTea?.map((el) => (
-          <div key={el.id}>
+          <div key={el.id} className="topCard">
             <div className="card" style={{ width: '18rem' }}>
               <img src={el.img} className="card-img-top" alt={el.name} />
               <div className="card-body">
                 <h5 className="card-title">{el.name}</h5>
-                <p classNmae="card-text">{el.description}</p>
+                <p className="card-text">{el.description}</p>
                 <button type="button" className="btn btn-outline-success">редактировать</button>
-                <button type="button" className="btn btn-outline-danger">удалить</button>
+                <button type="button" className="btn btn-outline-danger">удалить чай из блога</button>
               </div>
             </div>
           </div>

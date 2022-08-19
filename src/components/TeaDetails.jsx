@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Comment from './Comments';
 
 function TeaDetails({ authState }) {
   const [teaState, setTeaState] = useState({});
@@ -22,12 +23,12 @@ function TeaDetails({ authState }) {
       .then((data) => {
         setTeaState(data);
       });
-    fetch(`/api/lk/${authState?.id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setUserState(data);
-        setIsFavState(data.favTeas.filter((el) => el.id === id).length > 0);
-      });
+    if (authState) {
+      fetch(`/api/lk/${authState?.id}`)
+        .then((res) => res.json())
+        .then((data) => setUserState(data));
+    // setIsFavState(userState.favTeas.includes(teaState));
+    }
   }, []);
 
   // console.log('>>>>>', userState.favTeas.includes(teaState.id));
@@ -70,66 +71,39 @@ function TeaDetails({ authState }) {
 
   return (
     <div className="row tea_detail">
-      {isFavState === true
-        ? (
-          <>
-            <div className="col-lg-8 col-md-8 col-sm-12 desc" id="tea_detail_block">
-              <h3>
-                <font color="#3AC1EF">
-                  ▍
-                  {teaState?.name}
-                </font>
-              </h3>
-              <img align="center" src={teaState?.img} className="img-fluid" />
-              <h1>Описание: </h1>
-              <p>
-                {teaState?.description}
-              </p>
-              <h1>Локация: </h1>
-              <p>
-                {teaState?.location}
-              </p>
-            </div>
-            <div className="btns_container">
+      <div className="col-lg-8 col-md-8 col-sm-12 desc" id="tea_detail_block">
+        <h3>
+          <font color="#3AC1EF">
+            ▍
+            {teaState?.name}
+          </font>
+        </h3>
+        <img align="center" src={teaState?.img} className="img-fluid" />
+        <h1>Описание: </h1>
+        <p>
+          {teaState?.description}
+        </p>
+        <h1>Локация: </h1>
+        <p>
+          {teaState?.location}
+        </p>
+      </div>
+      {authState
+      && (
+      <div className="btns_container">
 
-              {userState?.roleName === 'admin'
-                ? (
-                  <>
+        {userState?.roleName === 'admin'
+          ? (
+            <>
 
-                    <button type="button" className="btn btn-dark">Редактировать</button>
-                    <button type="button" className="btn btn-danger">Удалить</button>
-                  </>
-                )
-                : isFavState === false ? <button type="button" onClick={createHandler} className="btn btn-secondary">Добавить в избранное</button> : <button onClick={deleteHandler} type="button" className="btn btn-danger">Удалить из избранного</button>}
-            </div>
-            {' '}
-
-          </>
-        ) : (
-          <>
-            <div className="col-lg-8 col-md-8 col-sm-12 desc" id="tea_detail_block">
-              <h3>
-                <font color="#3AC1EF">
-                  ▍
-                  Чай удален из избранного
-                </font>
-              </h3>
-            </div>
-            <div className="btns_container">
-
-              {userState?.roleName === 'admin'
-                ? (
-                  <>
-
-                    <button type="button" className="btn btn-dark">Редактировать</button>
-                    <button type="button" className="btn btn-danger">Удалить</button>
-                  </>
-                )
-                : isFavState === false ? <button type="button" onClick={createHandler} className="btn btn-secondary">Добавить в избранное</button> : <button onClick={deleteHandler} type="button" className="btn btn-danger">Удалить из избранного</button>}
-            </div>
-          </>
-        ) }
-
+              <button type="button" className="btn btn-dark">Редактировать</button>
+              <button type="button" className="btn btn-danger">Удалить</button>
+            </>
+          )
+          : isFavState === true ? <button type="button" onClick={createHandler} className="btn btn-secondary">Добавить в избранное</button> : <button onClick={deleteHandler} type="button" className="btn btn-danger">Удалить из избранного</button>}
+      </div>
+      ) }
+      <Comment id={id} userState={userState} authState={authState} />
     </div>
   );
 }
