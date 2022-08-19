@@ -111,7 +111,7 @@ router.post('/godmode', async (req, res) => {
 router.delete('/teas/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const tea = await Tea.findOne({ where: { tea_id: id } });
+    const tea = await Tea.findByPk(id);
     if (tea) {
       await tea.destroy();
       return res.sendStatus(200);
@@ -120,6 +120,18 @@ router.delete('/teas/:id', async (req, res) => {
   } catch (err) {
     console.error(err);
   }
+});
+
+router.put('/teas/edit/:id', async (req, res) => {
+  const {
+    name, img, description, location, x, y,
+  } = req.body;
+  const { id } = req.params;
+  const tea = await Tea.findOne({ where: { id } });
+  if (tea) {
+    const teaEdit = await Tea.update({name: name, img: img, description: description, location : location, x:x, y:y}, { where: { id: req.params.id } });
+    return res.sendStatus(200);
+  } res.sendStatus(400);
 });
 
 export default router;

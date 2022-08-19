@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function AdminLk({ userState }) {
   const [allTea, setAllTea] = useState([{
@@ -31,6 +32,17 @@ function AdminLk({ userState }) {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const deleteHandler = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`/api/teas/${e.target.id}`, {
+      method: 'DELETE',
+    });
+    if (response.ok) {
+      setAllTea((prev) => (prev.filter((el) => el.id !== Number(e.target.id))));
+      alert('Чай удален из списка');
+    }
   };
 
   const submitHandler = async (e) => {
@@ -147,8 +159,8 @@ function AdminLk({ userState }) {
               <div className="card-body">
                 <h5 className="card-title">{el.name}</h5>
                 <p className="card-text">{el.description}</p>
-                <button type="button" className="btn btn-outline-success">редактировать</button>
-                <button type="button" className="btn btn-outline-danger">удалить чай из блога</button>
+                <Link to={`/tea/edit/${el.id}`} type="button" className="btn btn-outline-success">редактировать</Link>
+                <button onClick={deleteHandler} id={el.id} type="button" className="btn btn-outline-danger">удалить чай из блога</button>
               </div>
             </div>
           </div>

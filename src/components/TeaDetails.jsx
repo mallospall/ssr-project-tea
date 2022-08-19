@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Comment from './Comments';
 
 function TeaDetails({ authState }) {
@@ -12,6 +12,8 @@ function TeaDetails({ authState }) {
     favTeas: [],
     user_id: null,
   });
+
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -52,6 +54,17 @@ function TeaDetails({ authState }) {
     });
     if (response.ok) {
       setIsFavState(!isFavState);
+    }
+  };
+
+  const deleteHandlerAdmin = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`/api/teas/${e.target.id}`, {
+      method: 'DELETE',
+    });
+    if (response.ok) {
+      navigate('/');
+      alert('Чай удален');
     }
   };
 
@@ -97,7 +110,7 @@ function TeaDetails({ authState }) {
             <>
 
               <button type="button" className="btn btn-dark">Редактировать</button>
-              <button type="button" className="btn btn-danger">Удалить</button>
+              <button onClick={deleteHandlerAdmin} id={teaState.id} type="button" className="btn btn-danger">Удалить</button>
             </>
           )
           : isFavState === true ? <button type="button" onClick={createHandler} className="btn btn-secondary">Добавить в избранное</button> : <button onClick={deleteHandler} type="button" className="btn btn-danger">Удалить из избранного</button>}

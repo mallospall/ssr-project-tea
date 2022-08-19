@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import EditTea from './EditTea';
 import Lk from './Lk';
 import Login from './Login';
 import Main from './Main';
@@ -21,6 +22,7 @@ function App({ userSession }) {
             <Route path="/registration" element={<Registration setAuthState={setAuthState} />} />
             <Route path="/lk/:id" element={<Lk authState={authState} />} />
             <Route path="/tea/:id" element={<TeaDetails authState={authState} />} />
+            <Route path="/tea/edit/:id" element={<EditTea />}> </Route>
           </Routes>
         </div>
       </div>

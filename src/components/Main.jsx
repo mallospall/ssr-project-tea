@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Map, Placemark, YMaps } from 'react-yandex-maps';
 import { createPortal } from 'react-dom';
-import Login from './Login';
 import { Link } from 'react-router-dom';
+import Login from './Login';
 // import './yandex-map-restyle-ballon.scss'; // стили для карты и балуна
 
 export function Portal({ children, getHTMLElementId }) {
@@ -27,11 +27,11 @@ export function Portal({ children, getHTMLElementId }) {
 }
 
 function genRC() {
-  let r = Math.round((Math.random() * 255)); //red 0 to 255
-  let g = Math.round((Math.random() * 255)); //green 0 to 255
-  let b = Math.round((Math.random() * 255)); //blue 0 to 255
-  return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-};
+  const r = Math.round((Math.random() * 255)); // red 0 to 255
+  const g = Math.round((Math.random() * 255)); // green 0 to 255
+  const b = Math.round((Math.random() * 255)); // blue 0 to 255
+  return `rgb(${r}, ${g}, ${b})`;
+}
 
 function Main(props) {
   const [activePortal, setActivePortal] = useState(false);
@@ -39,8 +39,8 @@ function Main(props) {
 
   useEffect(() => {
     fetch('/api/teas')
-    .then((res) => res.json())
-    .then((data) => setTeaState(data));
+      .then((res) => res.json())
+      .then((data) => setTeaState(data));
   }, []);
   return (
     <div>
@@ -49,7 +49,8 @@ function Main(props) {
           <h1>Выбирайте точку на карте, чтобы узнать больше о конкретном сорте чая!</h1>
           <Map style={{ width: '700px', height: '700px' }} defaultState={{ center: [55.75, 37.57], zoom: 9 }} modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}>
             {teaState.map((tea) => (
-              <Placemark key={tea.id}
+              <Placemark
+                key={tea.id}
                 geometry={[tea.x, tea.y]}
                 options={
                   {
