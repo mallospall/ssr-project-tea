@@ -1,3 +1,4 @@
+import e from 'express';
 import express, { text } from 'express';
 import {
   User, Tea, Comment, Role, Favourite,
@@ -104,7 +105,21 @@ router.post('/godmode', async (req, res) => {
     const user = await User.findByPk(id);
     user.update({ role_id: 1 });
     res.sendStatus(200);
-  } else {res.sendStatus(400)};
+  } else { res.sendStatus(400); }
+});
+
+router.delete('/teas/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const tea = await Tea.findOne({ where: { tea_id: id } });
+    if (tea) {
+      await tea.destroy();
+      return res.sendStatus(200);
+    }
+    res.sendStatus(400);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 export default router;
