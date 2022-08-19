@@ -19,8 +19,6 @@ function Lk({ authState }) {
       .then((data) => setUserState(data));
   }, []);
 
-  console.log(userState);
-
   return (
     <div>
       {userState.roleName === 'admin' ? <AdminLk userState={userState} /> : <UserLk userState={userState} />}

@@ -9,7 +9,6 @@ function Comments({ id, userState, authState }) {
       .then((res) => res.json())
       .then((data) => setComState(data));
   }, []);
-  console.log(comState);
   const inputHandler = (e) => {
     setInput(e.target.value);
   };
@@ -26,7 +25,6 @@ function Comments({ id, userState, authState }) {
 
     });
     const data = await response.json();
-    console.log(data);
     setComState((prev) => [...prev, data]);
     setInput('');
   };

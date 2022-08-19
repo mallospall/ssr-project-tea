@@ -25,8 +25,6 @@ function AdminLk({ userState }) {
       .then((data) => setAllTea(data));
   }, []);
 
-  console.log(allTea);
-
   const inputHandler = (e) => {
     setInputTea((prev) => ({
       ...prev,
@@ -55,7 +53,6 @@ function AdminLk({ userState }) {
       body: JSON.stringify(inputTea),
     });
     const data = await response.json();
-    console.log(data);
     setAllTea((prev) => [...prev, data]);
   };
   return (

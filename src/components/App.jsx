@@ -10,7 +10,6 @@ import TeaDetails from './TeaDetails';
 
 function App({ userSession }) {
   const [authState, setAuthState] = useState(userSession || null);
-  console.log(authState?.id ?? 'p');
   return (
     <>
       <Navbar authState={authState} setAuthState={setAuthState} />

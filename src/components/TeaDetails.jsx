@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Comment from './Comments';
 
 function TeaDetails({ authState }) {
@@ -80,8 +80,6 @@ function TeaDetails({ authState }) {
     }
   };
 
-  console.log(teaState);
-
   return (
     <div className="row tea_detail">
       <div className="col-lg-8 col-md-8 col-sm-12 desc" id="tea_detail_block">
@@ -109,7 +107,7 @@ function TeaDetails({ authState }) {
           ? (
             <>
 
-              <button type="button" className="btn btn-dark">Редактировать</button>
+              <Link to={`/tea/edit/${id}`} type="button" className="btn btn-dark">Редактировать</Link>
               <button onClick={deleteHandlerAdmin} id={teaState.id} type="button" className="btn btn-danger">Удалить</button>
             </>
           )

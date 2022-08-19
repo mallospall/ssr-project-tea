@@ -12,7 +12,7 @@ router.post('/registration', async (req, res) => {
     if (!user) {
       const newUser = await User.create({ name, email, password: hashPassword });
       req.session.userSession = { id: newUser.id, name: newUser.name };
-      return res.json({ name: newUser.name });
+      return res.json({ id: newUser.id, name: newUser.name });
     }
     res.status(400).json({ message: 'Такой email уже занят' });
   } catch (err) {
@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
       const checkPass = await bcrypt.compare(password, user.password); // возвращает boolean значение
       if (checkPass) {
         req.session.userSession = { id: user.id, name: user.name };
-        return res.json({ name: user.name });
+        return res.json({ id: user.id, name: user.name });
       }
     }
     res.status(400).json({ message: 'Email или пароль не верны' });

@@ -1,5 +1,5 @@
-import e from 'express';
-import express, { text } from 'express';
+// import e from 'express';
+import express from 'express';
 import {
   User, Tea, Comment, Role, Favourite,
 } from '../db/models';
@@ -129,7 +129,9 @@ router.put('/teas/edit/:id', async (req, res) => {
   const { id } = req.params;
   const tea = await Tea.findOne({ where: { id } });
   if (tea) {
-    const teaEdit = await Tea.update({name: name, img: img, description: description, location : location, x:x, y:y}, { where: { id: req.params.id } });
+    const teaEdit = await Tea.update({
+      name, img, description, location, x, y,
+    }, { where: { id: req.params.id } });
     return res.sendStatus(200);
   } res.sendStatus(400);
 });

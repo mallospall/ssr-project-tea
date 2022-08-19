@@ -20,8 +20,6 @@ function EditTea(props) {
       .then((data) => setTeaState(data));
   }, []);
 
-  console.log(teaState);
-
   const inputHandler = (e) => {
     setTeaState((prev) => ({
       ...prev,
