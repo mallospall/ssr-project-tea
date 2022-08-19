@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Comment from './Comments';
 
 function TeaDetails({ authState }) {
   const [teaState, setTeaState] = useState({});
@@ -22,10 +23,12 @@ function TeaDetails({ authState }) {
       .then((data) => {
         setTeaState(data);
       });
-    fetch(`/api/lk/${authState.id}`)
-      .then((res) => res.json())
-      .then((data) => setUserState(data));
-    setIsFavState(userState.favTeas.includes(teaState));
+    if (authState) {
+      fetch(`/api/lk/${authState?.id}`)
+        .then((res) => res.json())
+        .then((data) => setUserState(data));
+    // setIsFavState(userState.favTeas.includes(teaState));
+    }
   }, []);
 
   const deleteHandler = async (e) => {
@@ -43,7 +46,7 @@ function TeaDetails({ authState }) {
 
   const createHandler = async (e) => {
     e.preventDefault();
-    const response = await fetch(`api/fav/${id}`, {
+    const response = await fetch(`/api/fav/${id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: userState.user_id }),
@@ -74,9 +77,11 @@ function TeaDetails({ authState }) {
           {teaState?.location}
         </p>
       </div>
+      {authState
+      && (
       <div className="btns_container">
 
-        {userState.roleName === 'admin'
+        {userState?.roleName === 'admin'
           ? (
             <>
 
@@ -86,7 +91,8 @@ function TeaDetails({ authState }) {
           )
           : isFavState === true ? <button type="button" onClick={createHandler} className="btn btn-secondary">Добавить в избранное</button> : <button onClick={deleteHandler} type="button" className="btn btn-danger">Удалить из избранного</button>}
       </div>
-
+      ) }
+      <Comment id={id} userState={userState} authState={authState} />
     </div>
   );
 }
